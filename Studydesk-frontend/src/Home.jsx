@@ -4,14 +4,16 @@ import { Route, Routes } from "react-router-dom";
 import Homepage from "./Pages/Homepage";
 import CousesPage from "./Pages/CousesPage";
 
+
 const Home = () => {
+ 
   return (
     <div className="h-screen w-screen bg-slate-950/5 ">
       <Navbar />
       
       <Routes>
-          <Route path='/' element={<Homepage/> } ></Route>
-          <Route path='/:id/:course/' element={<CousesPage/>}></Route>
+          <Route path='' element={<Homepage/> } ></Route>
+          <Route path=':id/:course/' element={<CousesPage/>}></Route>
         </Routes>
     </div>
   );

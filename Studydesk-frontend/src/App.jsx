@@ -2,10 +2,20 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import AppContext from "./Appcontext/AppContext";
 import Home from "./Home";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Componets/loader";
-import Login from "./authinacationsys/Login";
+import { onAuthStateChanged } from "firebase/auth";
+import {
+  auth,
+  db,
+  loginFirebaseAuth,
+  SignUpFirebaseAuth,
+} from "./Authincation/Auth";
+import { doc, getDoc } from "firebase/firestore";
+import Login from "./Authincation/Login";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const nav = useNavigate();
@@ -40,6 +50,65 @@ const App = () => {
     }, 3000);
   }, []);
 
+  const [Islogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Signemail, setSignEmail] = useState("");
+  const [SignUserName, setSignUserName] = useState("");
+  const [SignPassword, setSignPassword] = useState("");
+  const [SignCheckPassword, setSignCheckPassword] = useState("");
+  const [user, setUser] = useState(null);
+  const [userDB, setUserDB] = useState(null);
+  const [Signloading, setSignLoading] = useState(true);
+  const [signUPStates, setsignUPStates] = useState(true);
+  // auth  --Nikhil
+  const signUpFunction = async () => {
+    console.log("ini");
+    SignPassword === SignCheckPassword
+      ? await SignUpFirebaseAuth(Signemail, SignPassword, SignUserName)
+      : toast.error("password not match " + setSignCheckPassword);
+    toast.success("Logged as " + Signemail);
+    console.log("done");
+  };
+  const signInFunction = async () => {
+    console.log("init");
+    await loginFirebaseAuth(email, Password);
+    toast.success("Logged as " + email)
+  };
+
+  const handldeLogin = async () => {
+    Islogin ? signInFunction() : signUpFunction();
+  };
+  //  for navigation --Nikhil
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      currentUser ? nav("/Home") : nav("/");
+      setSignLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+  const getUserData = async (userId) => {
+    try {
+      const userDocRef = doc(db, "users", userId);
+
+      const docSnap = await getDoc(userDocRef);
+
+      if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        setUserDB(docSnap.data().userName);
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+      return null;
+    }
+  };
+  Signloading ? "" : user ? getUserData(user.uid) : "";
+
   const values = {
     sidebar,
     setSidebar,
@@ -51,12 +120,35 @@ const App = () => {
     CourseList,
     handleScroll,
     scrollDivBg,
+    Islogin,
+    setIsLogin,
+    email,
+    setEmail,
+    Password,
+    setPassword,
+    Signemail,
+    setSignEmail,
+    SignUserName,
+    setSignUserName,
+    SignPassword,
+    setSignPassword,
+    SignCheckPassword,
+    setSignCheckPassword,
+    handldeLogin,
+    userDB,
+    signUPStates,
+    setsignUPStates,
   };
   return (
     <>
       <AppContext.Provider value={values}>
-        {/* {loading ? <Home /> : <Loader />} */}
-        <Login />
+  
+        <Routes>
+          <Route path="/" element={ <Login />}></Route>
+          <Route path="/Home/*"  element={loading ? <Home /> : <Loader />}></Route>
+        </Routes>
+       
+        <ToastContainer />
       </AppContext.Provider>
     </>
   );

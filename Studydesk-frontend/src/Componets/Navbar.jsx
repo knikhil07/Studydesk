@@ -11,8 +11,10 @@ const Navbar = () => {
   const {CourseList}=useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState("");
   const filteredItems = CourseList.filter((item) => item.list.toLowerCase().includes(searchTerm.toLowerCase()));
-  const { sidebar, setSidebar ,nav,scrollDivBg} = useContext(AppContext);
+  const { sidebar, setSidebar ,nav,scrollDivBg,userDB} = useContext(AppContext);
+  const a = userDB ?userDB.slice(0,1) :"s"; 
   return (
+    
     <>
       <div className={`w-full py-3  ${scrollDivBg?"transition-all bg-white":""}   `}>
         <div className="px-6  flex items-center justify-between">
@@ -51,7 +53,7 @@ const Navbar = () => {
               >
                 {searchTerm &&
                   filteredItems.map((item, index) => (
-                    <li onClick={()=>{setSearchTerm(item.list),nav(`/${item.id}/${item.list}`),setSearchTerm("")}} className="pl-2  py-1 hover:text-sky-500" key={index}>
+                    <li onClick={()=>{setSearchTerm(item.list),nav(`/Home/${item.id}/${item.list}`),setSearchTerm("")}} className="pl-2  py-1 hover:text-sky-500" key={index}>
                       {item.list}
                     
                     </li>
@@ -68,7 +70,7 @@ const Navbar = () => {
               <BellIcon />
             </span>
             <span className="h-8 w-8 grid place-content-center text-white rounded-full bg-sky-500">
-              S
+            {`  ${a}`}
             </span>
             <span className="h-10 w-10 text-2xl grid place-content-center text-slate-950 relative  rounded-full hover:bg-black/5">
               <IoMdMore />
