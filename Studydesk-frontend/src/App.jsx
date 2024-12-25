@@ -18,6 +18,30 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
+const [darkMode,setDarkMode]=useState(false);
+const [isChecked, setIsChecked] = useState(false);
+
+const handleCheckboxClick = (e) => {
+  const checked = e.target.checked;
+  setIsChecked(checked);
+  let newTheme="light";
+  if (checked || localStorage.getItem("theme")==="light") {
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
+    newTheme="dark";
+  
+  } else if(!checked || localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("light");
+    document.body.classList.remove("dark");
+    newTheme="light"
+  }
+  localStorage.setItem("theme", newTheme);
+};
+
+useEffect(() => {
+  
+  
+}, []);
   const nav = useNavigate();
   const [scrollDivBg, setScrollPosition] = useState(false);
   const [sidebar, setSidebar] = useState(false);
@@ -138,6 +162,7 @@ const App = () => {
     userDB,
     signUPStates,
     setsignUPStates,
+    setDarkMode,isChecked,handleCheckboxClick
   };
   return (
     <>

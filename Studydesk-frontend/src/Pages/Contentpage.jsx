@@ -28,7 +28,7 @@ const Contentpage = () => {
             </div>
           ) : (
             <div
-              className="grid gap-2 lg:max-w-4xl mx-auto"
+              className="grid gap-2 lg:max-w-4xl mx-auto dark:text-white"
               dangerouslySetInnerHTML={{
                 __html: CourseList[`${id}`].menu[`${contentacessId}`].text,
               }}

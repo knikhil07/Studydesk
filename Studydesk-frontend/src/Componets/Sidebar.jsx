@@ -10,7 +10,7 @@ const Sidebar = () => {
         <ol className="p-4 list-disc ">
           {CourseList.map((item,index) => {
             return (
-              <li key={index} onClick={()=>{nav(`/Home/${index}/${item.list}`),setSidebar(false)}} className="pl-2  py-1 hover:bg-black/5"  >{item.list}</li>
+              <li key={index} onClick={()=>{nav(`/Home/${index}/${item.list}`),setSidebar(false)}} className="pl-2  py-1 hover:bg-black/5 dark:text-white"  >{item.list}</li>
            
             );
           })}
