@@ -61,7 +61,7 @@ useEffect(() => {
   };
 
   const fectAPI = async () => {
-    const res = await axios.get("http://localhost:8080/api");
+    const res = await axios.get("https://studydesk-backend.onrender.com/api");
 
     // console.log(res.data.CoursesList);
     setCourseList(res.data.CoursesList);

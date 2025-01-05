@@ -35,9 +35,9 @@ const Navbar = () => {
             >
               <MenuIcon />
             </span>
-            <a href="/Home" className="text-xl font-normal">
+            <button onClick={()=>{nav("/Home")}} className="text-xl font-normal">
               Studydesk
-            </a>
+            </button>
           </div>
           <div className="hidden relative px-8 py-2 rounded-full sm:flex items-center gap-3  border-2 ">
             <input
