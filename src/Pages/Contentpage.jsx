@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const Contentpage = () => {
   const { contentacessId, CourseList } = useContext(AppContext);
   const { id } = useParams();
-
+  
   return (
     <>
       <div className="h-full w-full">
