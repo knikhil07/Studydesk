@@ -1,0 +1,15 @@
+@font-face {
+  font-family: Sd-font-main;
+  src: url(.\assets\Poppins-Regular.ttf);
+}
+
+.sd-font-main {
+  font-family: Sd-font-main;
+}
+* {
+  font-family: sd-font-main;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
