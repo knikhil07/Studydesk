@@ -19,12 +19,12 @@ const Homepage = () => {
               skill set. Let me know if you want more details or resources to
               help you with your coursework!
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
               {CourseList.map((item, index) => {
               return(
                 <div
                 key={index}
-                className="p-6 rounded-lg bg-white  dark:bg-white/5  shadow-md *:cursor-pointer grid place-items-center gap-3"
+                className="p-6 rounded-lg bg-white  dark:bg-white/5  shadow-md *:cursor-pointer grid place-items-center gap-3 "
               >
                 <h2 className="px-8 py-2 rounded-full bg-sky-500/10 text-sky-500">
                   {item.list}
