@@ -8,7 +8,7 @@ import CousesPage from "./Pages/CousesPage";
 const Home = () => {
  
   return (
-    <div className="h-screen w-screen bg-slate-950/5 dark:bg-black/90">
+    <div className="h-screen w-screen bg-white dark:bg-black/90">
       <Navbar />
       
       <Routes>

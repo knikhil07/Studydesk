@@ -20,7 +20,8 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
 const [darkMode,setDarkMode]=useState(false);
 const [isChecked, setIsChecked] = useState(false);
-
+// const url ="https://studydesk-backend.onrender.com/api";
+const url ="http://localhost:8080/api";
 const handleCheckboxClick = (e) => {
   const checked = e.target.checked;
   setIsChecked(checked);
@@ -61,7 +62,7 @@ useEffect(() => {
   };
 
   const fectAPI = async () => {
-    const res = await axios.get("https://studydesk-backend.onrender.com/api");
+    const res = await axios.get(url);
 
     // console.log(res.data.CoursesList);
     setCourseList(res.data.CoursesList);

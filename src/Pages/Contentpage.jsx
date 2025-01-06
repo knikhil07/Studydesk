@@ -55,7 +55,9 @@ const Contentpage = () => {
         <div className="w-full flex items-start justify-center flex-col gap-2 pl-3 md:pl-8 lg:pl-10">
           {CourseList[`${id}`]?.menu[
             `${contentacessId}`
-          ]?.code?.defination?.map((item, index) => (
+          ]?.code?.defination? CourseList[`${id}`].menu[
+            `${contentacessId}`
+          ].code.defination.map((item, index) => (
             <React.Fragment key={index}>
               <div className="px-6 gap-3 flex flex-col">
                 <b className="text-xl">{item.b || "Default Heading"}</b>
@@ -72,12 +74,12 @@ const Contentpage = () => {
                 </div>
               </div>
             </React.Fragment>
-          ))}
+          )):""}
         </div>
 
-        <div className="w-full   flex items-center justify-center flex-col gap-6">
+        {/* <div className="w-full   flex items-center justify-center flex-col gap-6">
           {CourseList[`${id}`]?.menu[`${contentacessId}`]?.code &&
-            CourseList[`${id}`].menu[`${contentacessId}`].code.syntax.map(
+            CourseList[`${id}`].menu[`${contentacessId}`].code?.syntax.map(
               (item, index) => (
                 <React.Fragment key={index}>
                   {item?.defination?.map((item, index) => {
@@ -138,7 +140,80 @@ const Contentpage = () => {
                 </React.Fragment>
               )
             )}
-        </div>
+        </div> */}
+
+        {CourseList[`${id}`]?.menu[`${contentacessId}`]?.code?
+         <div className="w-full flex items-center justify-center flex-col gap-6 mt-3">
+         {CourseList[`${id}`]?.menu[`${contentacessId}`]?.code?.syntax.map(
+           (item, index) => (
+             <React.Fragment key={index}>
+               {/* Check if defination is a valid array */}
+               {Array.isArray(item?.defination) && item.defination.length > 0 &&
+                 item.defination.map((defItem, defIndex) => (
+                   <div
+                     key={defIndex}
+                     className="w-[90%] pl-3 md:pl-8 lg:pl-10 gap-3 flex flex-col items-start"
+                   >
+                     <b>{defItem?.b}</b>
+                     <div className="flex flex-col gap-3">
+                       {Array.isArray(defItem?.def) ? (
+                         defItem.def.map((desc, descIndex) => (
+                           <p key={descIndex} className="text-start break-words">
+                             {desc || "No description available"}
+                           </p>
+                         ))
+                       ) : (
+                         <p className="text-start break-words">
+                           {defItem?.def || "No description available"}
+                         </p>
+                       )}
+                     </div>
+                   </div>
+                 ))
+               }
+       
+               {/* Other content */}
+               <div className="px-6 py-8 w-[90%] min-w-72 shadow-md bg-slate-800 rounded-xl">
+                 <div>
+                   <h1 className="text-2xl font-bold mb-3 text-sky-500">
+                     {item.head || item.attri}
+                   </h1>
+                   {item.code && (
+                     <pre className="dark:text-white text-wrap text-sm md:text-base px-4 py-4 bg-white/10 rounded-lg text-white">
+                       {item.code}
+                     </pre>
+                   )}
+                   {item.keyComponents && (
+                     <>
+                       <h2 className="font-semibold my-3 text-green-500">
+                         Key Components:
+                       </h2>
+                       <p className="text-sky-500">{item.keyComponents}</p>
+                     </>
+                   )}
+                 </div>
+               </div>
+       
+               {item?.exampleCode && (
+                 <div className="px-6 py-8 w-[90%] min-w-72 shadow-md bg-slate-800 rounded-xl">
+                   <div>
+                     <h1 className="text-2xl font-bold mb-3 text-sky-500">
+                       Example Code
+                     </h1>
+                     <pre className="dark:text-white text-sm md:text-base px-4 py-4 bg-white/10 rounded-lg text-white text-wrap">
+                       {item.exampleCode}
+                     </pre>
+                   </div>
+                 </div>
+               )}
+             </React.Fragment>
+           )
+         )}
+       </div>:''
+        }
+    
+
+
       </div>
     </>
   );

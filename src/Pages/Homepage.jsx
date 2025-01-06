@@ -13,11 +13,7 @@ const Homepage = () => {
               Learn and Gain
             </h2>
             <p className="dark:text-white px-6 flex mb-4 flex-wrap max-w-lg sm:max-w-2xl md:max-w-3xl lg:max-w-4xl ">
-              By combining these two fields—Data Science and Full Stack Web
-              Development—you'll gain the ability to create web applications
-              that incorporate data-driven insights, giving you a versatile
-              skill set. Let me know if you want more details or resources to
-              help you with your coursework!
+            The beauty of learning lies in its power to transform. As you invest time in learning, you gain not only skills but also confidence, resilience, and a sense of purpose. Every new insight brings you closer to your goals, making the journey rewarding and enriching.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
               {CourseList.map((item, index) => {
